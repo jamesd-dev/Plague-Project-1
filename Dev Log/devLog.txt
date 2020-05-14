@@ -1,0 +1,9 @@
+15-05-20
+- Created the most basic framework for the project. Essentially getting the canvas to load
+ and display the correct dimensions and installing a game loop.
+- There were some problems, originally I had wanted a GameManager object to oversee the 
+high-level game operations, but js wouldn't let the important built in functions like 
+requestAnimationFrame to play nicely with a class. So that object is now spilled out all
+ over a script. I'm hoping it won't get too messy as this project won't expand too much on
+ that particular script.
+
