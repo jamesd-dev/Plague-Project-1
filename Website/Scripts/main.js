@@ -35,19 +35,37 @@ function init() {
         highlight: window.palette.autumn.kobe,
         bright: window.palette.autumn.lavanderBlush
     };
+
+    // initialising the screen. One global variable holds a function to loop the current screen.
+    // The function is switched out for different screen states.
+    // Each state must have it's own update, draw and swich state logic.
+    window.activeGameState = new Start();
+
+    // There are too many things going on that require a click so i'm installing some logic to check what state the game is in.
+    window.addEventListener('click', () => {
+        // each state object can just handle it's own click logic
+        activeGameState.clickEvent();
+    });
+
+}
+
+// Will reset all global conatiners for game items. like clear the particle list and delete the player object.
+// Will not reset score.
+function resetGame() {
+
 }
 
 // resets the entire canvas.
 // I could have cleared it but I wanted bg color control inside the code for quick changes.
 function clearCanvas() {
-    ctx.fillStyle = window.palette.active.background;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    window.ctx.fillStyle = window.palette.active.background;
+    window.ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function gameLoop() {
     requestAnimationFrame(gameLoop);
-
     clearCanvas();
+    window.activeGameState.update();
 }
 
 window.addEventListener('load', () => {

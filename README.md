@@ -61,3 +61,7 @@ TASKS
   - special effects
   - polish
 
+TRELLO LINK
+  https://trello.com/b/G7pWGEBk/plague-project-1
+
+DEPLOYMENT LINK
