@@ -6,6 +6,7 @@ class Start extends State {
 
     changeState() {
         console.log('change state');
+        window.activeGameState = new Game();
     }
 
     update() {
