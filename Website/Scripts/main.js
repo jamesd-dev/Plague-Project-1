@@ -39,7 +39,7 @@ function init() {
     // initialising the screen. One global variable holds a function to loop the current screen.
     // The function is switched out for different screen states.
     // Each state must have it's own update, draw and swich state logic.
-    window.activeGameState = new Start();
+    window.activeGameState = new Win();
 
     // There are too many things going on that require a click so i'm installing some logic to check what state the game is in.
     window.addEventListener('click', () => {

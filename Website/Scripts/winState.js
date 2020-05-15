@@ -1,4 +1,4 @@
-class Start extends State {
+class Win extends State {
 
     constructor() {
         super();
@@ -20,7 +20,7 @@ class Start extends State {
     draw() {
         super.draw();
         if(this.visibleText) {
-            super.drawCenteredText('Click To Play', window.palette.active.bright);
+            super.drawCenteredText('Click To Restart', window.palette.active.bright);
         }
     }
 
