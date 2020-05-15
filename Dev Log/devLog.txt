@@ -6,4 +6,8 @@ high-level game operations, but js wouldn't let the important built in functions
 requestAnimationFrame to play nicely with a class. So that object is now spilled out all
  over a script. I'm hoping it won't get too messy as this project won't expand too much on
  that particular script.
+- Finished the start screen. I ended up holding it in an object and creating a new instance everytime the state changes. It sounds complicated but I needed to do it to make sure everything was renewed
+in a neat way.
+-Also had problems witht he window click event. Every screen needs to se click but only one is ever active. So I included an event click function in each state to handle the logic and just got the window to run that function in the current gamestate object.
+
 

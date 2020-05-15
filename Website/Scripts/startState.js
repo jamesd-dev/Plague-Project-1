@@ -53,11 +53,11 @@ class Start {
         this.centreGap = 100;
         this.panelGap = 30;
         this.panels = [
-            new Panel(0, (window.canvas.height / 2) + (this.centreGap / 2), window.canvas.width, (window.canvas.height / 2) - (this.centreGap / 2), false, 4, 1, window.palette.autumn.richBlack),
-            new Panel(0, 0, window.canvas.width, (window.canvas.height / 2) - (this.centreGap / 2), true, 4, 1, window.palette.autumn.richBlack),
+            new Panel(0, (window.canvas.height / 2) + (this.centreGap / 2), window.canvas.width, (window.canvas.height / 2) - (this.centreGap / 2), false, 4, 1, window.palette.active.secondary),
+            new Panel(0, 0, window.canvas.width, (window.canvas.height / 2) - (this.centreGap / 2), true, 4, 1, window.palette.active.secondary),
             // outer panels
-            new Panel(0, (window.canvas.height / 2) + (this.centreGap / 2) + this.panelGap, window.canvas.width, (window.canvas.height / 2) - (this.centreGap / 2) - this.panelGap, false, 5, 0, window.palette.autumn.darkSienna),
-            new Panel(0, 0, window.canvas.width, (window.canvas.height / 2) - (this.centreGap / 2) - this.panelGap, true, 5, 0, window.palette.autumn.darkSienna),
+            new Panel(0, (window.canvas.height / 2) + (this.centreGap / 2) + this.panelGap, window.canvas.width, (window.canvas.height / 2) - (this.centreGap / 2) - this.panelGap, false, 5, 0, window.palette.active.primary),
+            new Panel(0, 0, window.canvas.width, (window.canvas.height / 2) - (this.centreGap / 2) - this.panelGap, true, 5, 0, window.palette.active.primary),
         ];
         this.visibleText = true;
         // For things to check what game state is active
@@ -76,7 +76,9 @@ class Start {
         this.panels.forEach(panel => { panel.update(); });
         this.panels = this.panels.filter((panel) => {return panel.height > 0;});
         if(this.panels.size <= 0) {
+
             // change state
+            
         }
 
         // easier to include draw here as it always runs with update.
