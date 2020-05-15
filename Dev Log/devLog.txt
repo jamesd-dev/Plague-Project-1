@@ -17,3 +17,7 @@ it can lead back.
 - Enabled the player to collide with the canvas border.
 - Added basic damage taking ability to the player. I want to include a health bar at some point too.
 
+16-05-20
+- Reworked the file structure, including an entity class to hold common methods and values for enemies and player.
+- Also added an entities list to hold all entities, allowing easy iteration for collisions and running
+update and draw methods.
