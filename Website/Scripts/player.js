@@ -11,6 +11,9 @@ class Player {
         this.turretLength = 20;
         this.primColour = window.palette.autumn.kobe;
         this.secColour = window.palette.autumn.richBlack;
+
+        // stats
+        this.health = 100;
     }
 
     update() {
@@ -31,9 +34,13 @@ class Player {
         dx = Math.pow(mag, 0.2) * dx;
         dy = Math.pow(mag, 0.2) * dy;
 
-        // apply change
-        this.x += dx;
-        this.y += dy;
+
+        // check if player is colliding with anything.
+        if(!this.isColliding(this.x + dx, this.y + dy)) {
+            // apply change
+            this.x += dx;
+            this.y += dy;
+        }
 
     }
 
@@ -76,5 +83,27 @@ class Player {
         window.ctx.stroke();
         window.ctx.lineWidth = 0;
         window.ctx.closePath();
+    }
+
+    // tests projected x and y for collisions
+    isColliding(x, y) {
+
+        // radius of player outer circle
+        let radius = this.size + (this.size / 2);
+
+        let hitLeftBorder = (x <= window.borderWidth + radius);
+        let hitRightBorder = (x >= (window.canvas.width - window.borderWidth - radius));
+        let hitTopBorder = (y <= window.borderWidth + radius);
+        let hitBottomBorder = (y >= (window.canvas.height - window.borderWidth - radius));
+
+        return hitLeftBorder || hitRightBorder || hitTopBorder || hitBottomBorder;
+
+    }
+
+    takeDamage(damage) {
+        this.health -= damage;
+        if(this.health <= 0) {
+            // kill player
+        }
     }
 }

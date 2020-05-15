@@ -14,5 +14,6 @@ in a neat way.
 - Pretty much just have to create the game now, and connect the logic that leads one screen to the next.
 - Built the logic connecting other screens to the game screen, though the game needs to be complete before 
 it can lead back.
-
+- Enabled the player to collide with the canvas border.
+- Added basic damage taking ability to the player. I want to include a health bar at some point too.
 
