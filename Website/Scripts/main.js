@@ -39,13 +39,19 @@ function init() {
     // initialising the screen. One global variable holds a function to loop the current screen.
     // The function is switched out for different screen states.
     // Each state must have it's own update, draw and swich state logic.
-    window.activeGameState = new Win();
+    window.activeGameState = new Game();
 
     // There are too many things going on that require a click so i'm installing some logic to check what state the game is in.
     window.addEventListener('click', () => {
         // each state object can just handle it's own click logic
         activeGameState.clickEvent();
     });
+
+    // the score for the game. Obvs.
+    window.score = 0;
+
+    // the width of the game border (player cannot pass it)
+    window.borderWidth = 20;
 
 }
 
@@ -58,8 +64,10 @@ function resetGame() {
 // resets the entire canvas.
 // I could have cleared it but I wanted bg color control inside the code for quick changes.
 function clearCanvas() {
-    window.ctx.fillStyle = window.palette.active.background;
+    window.ctx.fillStyle = window.palette.active.secondary;
     window.ctx.fillRect(0, 0, canvas.width, canvas.height);
+    window.ctx.fillStyle = window.palette.active.background;
+    window.ctx.fillRect(window.borderWidth, window.borderWidth, canvas.width - (window.borderWidth * 2), canvas.height - (window.borderWidth * 2));
 }
 
 function gameLoop() {

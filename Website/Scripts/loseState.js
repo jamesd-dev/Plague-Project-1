@@ -1,4 +1,4 @@
-class Win extends State {
+class Lose extends State {
 
     constructor() {
         super();
@@ -20,7 +20,7 @@ class Win extends State {
     draw() {
         super.draw();
         if(this.visibleText) {
-            super.drawCenteredText('Click To Restart', window.palette.active.bright);
+            super.drawCenteredText('Click To Try Again', window.palette.active.bright);
             this.drawScore(window.palette.active.bright);
             this.drawWin(window.palette.active.bright);
         }
@@ -39,7 +39,7 @@ class Win extends State {
         ctx.fillStyle = color;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(`WINNER!!!!!`, (window.canvas.width/2), (window.canvas.height/4));
+        ctx.fillText(`YOU LOSE`, (window.canvas.width/2), (window.canvas.height/4));
     }
 
     clickEvent() {

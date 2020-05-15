@@ -8,6 +8,8 @@ requestAnimationFrame to play nicely with a class. So that object is now spilled
  that particular script.
 - Finished the start screen. I ended up holding it in an object and creating a new instance everytime the state changes. It sounds complicated but I needed to do it to make sure everything was renewed
 in a neat way.
--Also had problems witht he window click event. Every screen needs to se click but only one is ever active. So I included an event click function in each state to handle the logic and just got the window to run that function in the current gamestate object.
-
+- Also had problems witht he window click event. Every screen needs to se click but only one is ever active. So I included an event click function in each state to handle the logic and just got the window to run that function in the current gamestate object.
+- Created the win and lose state by basically ripping off the start state and adding more text. It looks fine for the MVP even if it's all a bit generic.
+- I also created the game state and included the basic (empty) functions it needs to operate as a state even if it has no parent.
+- Pretty much just have to create the game now, and connect the logic that leads one screen to the next.
 
