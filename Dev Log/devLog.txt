@@ -12,4 +12,7 @@ in a neat way.
 - Created the win and lose state by basically ripping off the start state and adding more text. It looks fine for the MVP even if it's all a bit generic.
 - I also created the game state and included the basic (empty) functions it needs to operate as a state even if it has no parent.
 - Pretty much just have to create the game now, and connect the logic that leads one screen to the next.
+- Built the logic connecting other screens to the game screen, though the game needs to be complete before 
+it can lead back.
+
 

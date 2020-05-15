@@ -53,6 +53,40 @@ function init() {
     // the width of the game border (player cannot pass it)
     window.borderWidth = 20;
 
+    // offset object used for creating camera tremble effect.
+    window.offset = {
+        x : 0,
+        y : 0,
+        shakePath : [],
+        shake : (len) => {
+            for(let i = 0; i < len - window.offset.shakePath.length; i++) {
+                window.offset.shakePath.push( (Math.random() * 3) - 1);
+            }
+        },
+        apply : () => {
+            if(window.offset.shakePath.length >= 2) {
+                window.offset.x = window.offset.shakePath.pop();
+                window.offset.y = window.offset.shakePath.pop();
+            } else {
+                window.offset.x = 0;
+                window.offset.y = 0;
+            }
+        }
+    };
+
+    // mouse object for tracking the mouse position
+    window.mouse = {
+        x: 0,
+        y: 0
+    };
+
+    // gets precise position of mouse on screen, regardless of canvas position.
+    window.addEventListener('mousemove', (e) => {
+        let rect = window.canvas.getBoundingClientRect();
+        window.mouse.x = e.x + rect.left;
+        window.mouse.y = e.y + rect.top;
+    });
+
 }
 
 // Will reset all global conatiners for game items. like clear the particle list and delete the player object.

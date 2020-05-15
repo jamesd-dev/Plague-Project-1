@@ -1,7 +1,7 @@
 class Game {
 
     constructor() {
-        
+        this.player = new Player(window.canvas.width/2, window.canvas.height/2);
     }
 
     changeState() {
@@ -9,11 +9,13 @@ class Game {
     }
 
     update() {
-        
+        this.player.update();
+
+        this.draw();
     }
 
     draw() {
-        
+        this.player.draw();
     }
 
     clickEvent() {
