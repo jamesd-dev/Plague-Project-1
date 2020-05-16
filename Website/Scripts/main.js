@@ -47,6 +47,16 @@ function init() {
         activeGameState.clickEvent();
     });
 
+    window.addEventListener('mouseup', () => {
+        // same deal as click
+        activeGameState.mouseUpEvent();
+    });
+
+    window.addEventListener('mousedown', () => {
+        // same deal as click
+        activeGameState.mouseDownEvent();
+    });
+
     // the score for the game. Obvs.
     window.score = 0;
 

@@ -68,8 +68,19 @@ class Player extends Entity {
     }
 
     clickEvent() {
-        let mouseDirection = this.getMouseDirection();
-        new Laser(this.x, this.y, mouseDirection.x, mouseDirection.y);
+        //let mouseDirection = this.getMouseDirection();
+        //new Laser(this.x, this.y, mouseDirection.x, mouseDirection.y);
+    }
+
+    mouseUpEvent() {
+        clearInterval(this.laserBuilder);
+    }
+
+    mouseDownEvent() {
+        this.laserBuilder = setInterval(() => {
+            let mouseDirection = this.getMouseDirection();
+            new Laser(this, mouseDirection.x, mouseDirection.y);
+        }, 1);
     }
 
     getMouseDirection() {

@@ -21,8 +21,17 @@ class Game {
     }
 
     clickEvent() {
+    }
+
+    mouseUpEvent() {
         Object.values(window.entities).forEach(entity => {
-            entity.clickEvent();
+            entity.mouseUpEvent();
+        });
+    }
+
+    mouseDownEvent() {
+        Object.values(window.entities).forEach(entity => {
+            entity.mouseDownEvent();
         });
     }
 

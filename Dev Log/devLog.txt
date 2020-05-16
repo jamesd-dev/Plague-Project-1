@@ -28,3 +28,6 @@ update and draw methods.
 - I had a sticking point where the laser would be perfectly happy to fire backwards along it's line. But that's fixed now.
 - I also enabled it to be used by nything as long as it had a start point and a direction.
  I know nothing else will use it, but.. old habits I guess, I like making it more generic in case I need it later.
+- Enabled the laser to produce fans of lasers while the player holds mouse down by creating an interval at mousedown and destroying it
+at mouse up. I was worried about the performance time, but it currently seems okay. Also got the laser to fade by tieing their lifetime
+to opacity. Though it does make it harder to change colour now as I had to use rgba.
