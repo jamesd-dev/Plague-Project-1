@@ -10,6 +10,10 @@ class Game {
     }
 
     update() {
+        Object.values(window.lasers).forEach(laser => {
+            laser.update();
+            laser.draw();
+        });
         Object.values(window.entities).forEach(entity => {
             entity.update();
             entity.draw();
@@ -17,7 +21,9 @@ class Game {
     }
 
     clickEvent() {
-        
+        Object.values(window.entities).forEach(entity => {
+            entity.clickEvent();
+        });
     }
 
 }

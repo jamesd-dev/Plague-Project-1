@@ -67,4 +67,23 @@ class Player extends Entity {
 
     }
 
+    clickEvent() {
+        let mouseDirection = this.getMouseDirection();
+        new Laser(this.x, this.y, mouseDirection.x, mouseDirection.y);
+    }
+
+    getMouseDirection() {
+         // get vector to mouse
+         let dx = window.mouse.x - this.x;
+         let dy = window.mouse.y - this.y;
+         let mag = Math.sqrt((dx * dx) + (dy * dy));
+ 
+         
+         //normalise vector
+         dx /= mag;
+         dy /= mag;
+
+         return {x: dx, y: dy};
+    }
+
 }

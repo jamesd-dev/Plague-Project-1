@@ -6,9 +6,11 @@ high-level game operations, but js wouldn't let the important built in functions
 requestAnimationFrame to play nicely with a class. So that object is now spilled out all
  over a script. I'm hoping it won't get too messy as this project won't expand too much on
  that particular script.
-- Finished the start screen. I ended up holding it in an object and creating a new instance everytime the state changes. It sounds complicated but I needed to do it to make sure everything was renewed
+- Finished the start screen. I ended up holding it in an object and creating a new instance everytime the state changes. It sounds
+ complicated but I needed to do it to make sure everything was renewed
 in a neat way.
-- Also had problems witht he window click event. Every screen needs to se click but only one is ever active. So I included an event click function in each state to handle the logic and just got the window to run that function in the current gamestate object.
+- Also had problems witht he window click event. Every screen needs to se click but only one is ever active. So I included an
+ event click function in each state to handle the logic and just got the window to run that function in the current gamestate object.
 - Created the win and lose state by basically ripping off the start state and adding more text. It looks fine for the MVP even if it's all a bit generic.
 - I also created the game state and included the basic (empty) functions it needs to operate as a state even if it has no parent.
 - Pretty much just have to create the game now, and connect the logic that leads one screen to the next.
@@ -21,3 +23,8 @@ it can lead back.
 - Reworked the file structure, including an entity class to hold common methods and values for enemies and player.
 - Also added an entities list to hold all entities, allowing easy iteration for collisions and running
 update and draw methods.
+- Spent 20 minutes doing some back of the napkin math to calaculate lasers and make them more efficient.
+- Created the laser, it took a while but then it's probably the hardest part of the whole game math-wise.
+- I had a sticking point where the laser would be perfectly happy to fire backwards along it's line. But that's fixed now.
+- I also enabled it to be used by nything as long as it had a start point and a direction.
+ I know nothing else will use it, but.. old habits I guess, I like making it more generic in case I need it later.
