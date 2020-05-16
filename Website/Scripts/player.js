@@ -7,7 +7,7 @@ class Player extends Entity {
 
     update() {
 
-        super.seek(window.mouse.x, window.mouse.y, this.isColliding);
+        //super.seek(window.mouse.x, window.mouse.y, this.isColliding);
 
     }
 

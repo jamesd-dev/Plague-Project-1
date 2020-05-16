@@ -31,3 +31,5 @@ update and draw methods.
 - Enabled the laser to produce fans of lasers while the player holds mouse down by creating an interval at mousedown and destroying it
 at mouse up. I was worried about the performance time, but it currently seems okay. Also got the laser to fade by tieing their lifetime
 to opacity. Though it does make it harder to change colour now as I had to use rgba.
+- Spent a very very long time reworking the equation to check laser collisions because it broke down near the vertical axis.
+Solution involves the intercection of a circle, but... crumbs, I really want to stop thining about it now that it works.
