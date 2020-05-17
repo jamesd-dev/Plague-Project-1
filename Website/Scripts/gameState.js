@@ -4,7 +4,7 @@ class Game {
         new Player(window.canvas.width/2, window.canvas.height/2);
         new Enemy(100, 100);
         for(let i = 0; i < 100; i++) {
-            new Enemy(Math.random() * window.canvas.width, Math.random() * window.canvas.height);
+            new Enemy(Math.random() * window.canvas.width, Math.random() * window.canvas.height, Math.random() * 10);
         }
     }
 
