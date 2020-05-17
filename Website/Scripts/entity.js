@@ -29,7 +29,7 @@ class Entity {
 
     // moves entity towards a target
     // also checks for collisions
-    seek(targetX, targetY, isColliding) {
+    seek(targetX, targetY, isColliding, entity) {
 
         // removes some of the jitter when the target is reached.
         targetX -= 2;
@@ -54,7 +54,7 @@ class Entity {
  
          // check if entity is colliding with anything.
          // anything but the player will just have a false returning function.
-         if(!this.isColliding(this.x + dx, this.y + dy)) {
+         if(!isColliding(this.x + dx, this.y + dy, entity)) {
              // apply change
              this.x += dx;
              this.y += dy;

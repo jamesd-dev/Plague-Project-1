@@ -7,7 +7,7 @@ class Player extends Entity {
 
     update() {
 
-        super.seek(window.mouse.x, window.mouse.y, this.isColliding);
+        super.seek(window.mouse.x, window.mouse.y, this.isColliding, this);
 
     }
 
@@ -53,10 +53,10 @@ class Player extends Entity {
     }
 
     // tests projected x and y for collisions
-    isColliding(x, y) {
+    isColliding(x, y, entity) {
 
         // radius of player outer circle
-        let radius = this.size + (this.size / 2);
+        let radius = entity.size + (entity.size / 2);
 
         let hitLeftBorder = (x <= window.borderWidth + radius);
         let hitRightBorder = (x >= (window.canvas.width - window.borderWidth - radius));
