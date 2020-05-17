@@ -40,3 +40,8 @@ Solution involves the intercection of a circle, but... crumbs, I really want to 
 - enemies now explode on death.
 - made explosions damage the player if it's in range. damage is proportional to how close the explosion is.
 - also added a simple health bar for the player
+- er... forgot to update the log and did rather a lot.
+- debugged the laser that persisted after player death
+- made the spawner more efficient
+- added simple pauses after each wave
+- added a score board

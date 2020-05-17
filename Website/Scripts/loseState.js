@@ -2,10 +2,11 @@ class Lose extends State {
 
     constructor() {
         super();
+        this.state = 'lose';
     }
 
     changeState() {
-        console.log('change state');
+        window.score = 0;
         window.activeGameState = new Game();
     }
 

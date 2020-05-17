@@ -12,7 +12,7 @@ class Enemy extends Entity {
 
     update() {
         if(window.player != undefined) {
-            this.size = Math.sqrt(this.health);
+            this.size = Math.sqrt(this.health) + 3;
             this.explosionDamage = Math.pow(this.health, 1.5);
             this.seek(window.player.x, window.player.y, () => {return false;});
             this.trySuicideAttack();
@@ -43,6 +43,7 @@ class Enemy extends Entity {
 
     die() {
         this.explode();
+        window.score += 100;
         if (this.getDistanceToPlayer() < this.explosionRadius) {
             window.player.takeDamage(this.explosionDamage * (1/this.getDistanceToPlayer()));
         }

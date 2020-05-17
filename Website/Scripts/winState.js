@@ -2,10 +2,11 @@ class Win extends State {
 
     constructor() {
         super();
+        this.state = 'win';
     }
 
     changeState() {
-        console.log('change state');
+        window.score = 0;
         window.activeGameState = new Game();
     }
 

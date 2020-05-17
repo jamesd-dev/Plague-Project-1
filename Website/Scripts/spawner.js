@@ -1,20 +1,13 @@
 class Spawner {
     constructor() {
         this.waves = [
-            new Wave(1, 50, 100, 50)
+            new Wave(50, 10, 100, 100)
         ];
 
         this.currentWave = -1;
         this.waveComplete = false;
         this.spawnInterval = undefined;
         this.playNextWave();
-    }
-
-    update() {
-        if(this.waves[this.currentWave].enemies.length <= 0) {
-            this.waveComplete = true;
-            clearInterval(this.spawnInterval);
-        }
     }
 
     isLastWave() {
@@ -26,14 +19,20 @@ class Spawner {
     }
 
     playNextWave() {
-        if(!this.isLastWave()) {
-            this.currentWave++;
-            this.waveComplete = false;
-            this.spawnInterval = setInterval(() => {
-                let pos = this.getRandomBorderPosition();
-                new Enemy(pos.x, pos.y, this.waves[this.currentWave].enemies.pop());
-            }, 500);
-        }
+        setTimeout(() => {
+            if(!this.isLastWave()) {
+                this.currentWave++;
+                this.waveComplete = false;
+                this.spawnInterval = setInterval(() => {
+                    if(this.waves[this.currentWave].enemies.length <= 1) {
+                        this.waveComplete = true;
+                        clearInterval(this.spawnInterval);
+                    }
+                    let pos = this.getRandomBorderPosition();
+                    new Enemy(pos.x, pos.y, this.waves[this.currentWave].enemies.pop());
+                }, 200);
+            }
+        }, 3000);
     }
 
     getRandomBorderPosition() {

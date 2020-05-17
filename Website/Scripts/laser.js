@@ -38,7 +38,7 @@ class Laser {
         this.endX = this.startX + (directionX * targetMag);
         this.endY = this.startY + (directionY * targetMag);
 
-        this.damage = (1 / targetMag * 2000);
+        this.damage = (1 / targetMag * 5000);
 
         // opacity and lifetime are the same. therefore it has a max value of 1..ish.
         this.lifetime = (1 / targetMag * 100);

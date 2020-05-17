@@ -2,6 +2,7 @@ class Start extends State {
 
     constructor() {
         super();
+        this.state = 'start';
     }
 
     changeState() {

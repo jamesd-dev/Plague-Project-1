@@ -100,6 +100,9 @@ class Player extends Entity {
 
     mouseDownEvent() {
         this.laserBuilder = setInterval(() => {
+            if(window.activeGameState.state != 'game') {
+                clearInterval(this.laserBuilder);
+            }
             let mouseDirection = this.getMouseDirection();
             new Laser(this, mouseDirection.x, mouseDirection.y);
         }, 1);
