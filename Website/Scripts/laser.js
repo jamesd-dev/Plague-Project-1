@@ -38,15 +38,13 @@ class Laser {
         this.endX = this.startX + (directionX * targetMag);
         this.endY = this.startY + (directionY * targetMag);
 
-        this.damage = (1 / targetMag * 1000);
+        this.damage = (1 / targetMag * 2000);
 
         // opacity and lifetime are the same. therefore it has a max value of 1..ish.
         this.lifetime = (1 / targetMag * 100);
         this.decayRate = 0.7;
         // makes sure that the laser gets one frame of being full opacity.
         this.lifetime /= this.decayRate;
-
-        console.log(this.lifetime);
 
         // damage entity hit
         if(collision.e) {

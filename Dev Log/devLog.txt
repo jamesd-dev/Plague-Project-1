@@ -34,3 +34,7 @@ to opacity. Though it does make it harder to change colour now as I had to use r
 - Spent a very very long time reworking the equation to check laser collisions because it broke down near the vertical axis.
 Solution involves the intercection of a circle, but... crumbs, I really want to stop thining about it now that it works.
 - Added the ability for enemies to die and made the laser weaker and fainter the further it has to go.
+
+17-05-20
+- Added explosion particles and applied the camera shake effect.
+- enemies now explode on death.

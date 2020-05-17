@@ -34,6 +34,7 @@ class Enemy extends Entity {
     }
 
     die() {
+        this.explode();
         delete window.entities[this.id];
     }
 

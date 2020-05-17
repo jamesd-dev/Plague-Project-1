@@ -13,6 +13,7 @@ class Game {
     }
 
     update() {
+        window.offset.apply();
         Object.values(window.lasers).forEach(laser => {
             laser.update();
             laser.draw();
@@ -20,6 +21,10 @@ class Game {
         Object.values(window.entities).forEach(entity => {
             entity.update();
             entity.draw();
+        });
+        Object.values(window.particles).forEach(particle => {
+            particle.update();
+            particle.draw();
         });
     }
 

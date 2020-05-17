@@ -78,4 +78,11 @@ class Entity {
         
     }
 
+    explode() {
+        for (let i = 0; i < 50; i++) {
+            new ExplosionParticle(this.x, this.y);
+        }
+        window.offset.shake(50);
+    }
+
 }

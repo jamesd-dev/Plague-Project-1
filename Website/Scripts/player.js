@@ -7,7 +7,7 @@ class Player extends Entity {
 
     update() {
 
-        //super.seek(window.mouse.x, window.mouse.y, this.isColliding);
+        super.seek(window.mouse.x, window.mouse.y, this.isColliding);
 
     }
 
@@ -95,6 +95,18 @@ class Player extends Entity {
          dy /= mag;
 
          return {x: dx, y: dy};
+    }
+
+    takeDamage(damage) {
+        this.health -= damage;
+        if(this.health <= 0) {
+            this.die();
+        }
+    }
+
+    die() {
+        this.explode();
+        delete window.entities[this.id];
     }
 
 }
