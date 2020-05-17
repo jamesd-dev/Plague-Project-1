@@ -88,7 +88,7 @@ class Enemy extends Entity {
 
     trySuicideAttack() {
         // tries to get close so explosion hurts more
-        if(this.getDistanceToPlayer() < this.explosionRadius) {
+        if(this.getDistanceToPlayer() < this.explosionRadius * 0.9) {
             this.die();
         }
     }
