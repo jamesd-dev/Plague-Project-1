@@ -3,6 +3,8 @@ class Player extends Entity {
     constructor(x, y) {
         super(x, y, 0.2, 10, window.palette.active.primary, window.palette.active.secondary, 100);
         this.turretLength = 20;
+        // ensures that there can only be one player in game.
+        window.player = this;
     }
 
     update() {
@@ -126,10 +128,9 @@ class Player extends Entity {
 
     die() {
         this.explode();
-        Object.values(window.entities).forEach(entity => {
-            entity.player = undefined;
-        });
-        delete window.entities[this.id];
+        // lose game
+        window.activeGameState = new Lose();
+        delete window.player;
     }
 
 }

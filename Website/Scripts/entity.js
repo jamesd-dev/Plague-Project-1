@@ -24,8 +24,6 @@ class Entity {
         this.id = (`${Math.round(this.x)}${Math.round(this.y)}`);
         this.maxHealth = health;
         this.health = this.maxHealth;
-        // adds entity to entities list, used to loop through and draw/update all entities
-        window.entities[this.id] = this;
     }
 
     // moves entity towards a target

@@ -1,10 +1,9 @@
 class Game {
 
     constructor() {
-        let player = new Player(window.canvas.width/2, window.canvas.height/2);
-        for(let i = 0; i < 100; i++) {
-            new Enemy(Math.random() * window.canvas.width, Math.random() * window.canvas.height, Math.random() * 100, player);
-        }
+        resetGame();
+        window.player = new Player(window.canvas.width/2, window.canvas.height/2);
+        this.spawner = new Spawner();
     }
 
     changeState() {
@@ -13,10 +12,21 @@ class Game {
 
     update() {
         window.offset.apply();
+        if(this.spawner.waveComplete && Object.values(window.entities).length <= 1) {
+            if(this.spawner.isLastWave()) {
+                // win
+                window.activeGameState = new Win();
+            } else {
+                this.spawner.playNextWave();
+            }
+        }
+        this.spawner.update();
         Object.values(window.lasers).forEach(laser => {
             laser.update();
             laser.draw();
         });
+        window.player.update();
+        window.player.draw();
         Object.values(window.entities).forEach(entity => {
             entity.update();
             entity.draw();
@@ -31,15 +41,11 @@ class Game {
     }
 
     mouseUpEvent() {
-        Object.values(window.entities).forEach(entity => {
-            entity.mouseUpEvent();
-        });
+        window.player.mouseUpEvent();
     }
 
     mouseDownEvent() {
-        Object.values(window.entities).forEach(entity => {
-            entity.mouseDownEvent();
-        });
+        window.player.mouseDownEvent();
     }
 
 }

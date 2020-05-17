@@ -102,7 +102,15 @@ function init() {
 // Will reset all global conatiners for game items. like clear the particle list and delete the player object.
 // Will not reset score.
 function resetGame() {
-
+    window.entities = {};
+    window.particles = {};
+    window.lasers = {};
+    window.player = undefined;
+    if(window.offset) {
+        window.offset.x = 0;
+        window.offset.y = 0;
+        window.offset.shakePath = [];
+    }
 }
 
 // resets the entire canvas.

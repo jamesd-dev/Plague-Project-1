@@ -91,4 +91,8 @@ class State {
         this.panels.map((panel) => {panel.move = true;});
     }
 
+    mouseDownEvent() {}
+
+    mouseUpEvent() {}
+
 }
