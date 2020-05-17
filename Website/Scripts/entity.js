@@ -22,7 +22,8 @@ class Entity {
         // Unique unless something else spawns in exactly the same place.
         // But then I can lose that one anyway.
         this.id = (`${Math.round(this.x)}${Math.round(this.y)}`);
-        this.health = health;
+        this.maxHealth = health;
+        this.health = this.maxHealth;
         // adds entity to entities list, used to loop through and draw/update all entities
         window.entities[this.id] = this;
     }

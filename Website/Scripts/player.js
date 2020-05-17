@@ -50,6 +50,26 @@ class Player extends Entity {
         window.ctx.stroke();
         window.ctx.lineWidth = 0;
         window.ctx.closePath();
+
+        this.drawHealthBar();
+    }
+
+    drawHealthBar() {
+
+        let maxBarWidth = this.size * 2;
+        let backColour = this.secColour;
+        let barColour = window.palette.active.bright;
+
+        let healthPercent = this.health / this.maxHealth;
+        let barWidth = maxBarWidth * healthPercent;
+        let barHeight = maxBarWidth / 4;
+
+        let barX = this.x - (barWidth/2);
+        let barY = this.y - (this.size * 2.5);
+
+        window.ctx.fillStyle = backColour;
+        window.ctx.fillRect(barX + window.offset.x, barY + window.offset.y, barWidth, barHeight);
+
     }
 
     // tests projected x and y for collisions
