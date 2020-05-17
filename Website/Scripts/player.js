@@ -106,6 +106,9 @@ class Player extends Entity {
 
     die() {
         this.explode();
+        Object.values(window.entities).forEach(entity => {
+            entity.player = undefined;
+        });
         delete window.entities[this.id];
     }
 

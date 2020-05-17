@@ -1,14 +1,22 @@
 class Enemy extends Entity {
 
-    constructor(x, y, size, player) {
-        super(x, y, 0.3, size, window.palette.active.primary, window.palette.active.secondary, 10);
-        this.health = Math.pow(this.size, 2);
+    constructor(x, y, health, player) {
+        super(x, y, 0.3, 1, window.palette.active.primary, window.palette.active.secondary, health);
+        this.size = Math.sqrt(this.health);
         // used to target player
         this.player = player;
+        // radius at which the explosion on death will damage player
+        this.explosionRadius = 20;
+        this.explosionDamage = Math.pow(this.health, 1.5);
     }
 
     update() {
-        this.seek(this.player.x, this.player.y, () => {return false;});
+        if(this.player != undefined) {
+            this.size = Math.sqrt(this.health);
+            this.explosionDamage = Math.pow(this.health, 1.5);
+            this.seek(this.player.x, this.player.y, () => {return false;});
+            this.trySuicideAttack();
+        }
     }
 
     draw() {
@@ -35,6 +43,9 @@ class Enemy extends Entity {
 
     die() {
         this.explode();
+        if (this.getDistanceToPlayer() < this.explosionRadius) {
+            this.player.takeDamage(this.explosionDamage * (1/this.getDistanceToPlayer()));
+        }
         delete window.entities[this.id];
     }
 
@@ -66,6 +77,20 @@ class Enemy extends Entity {
         }
 
          
+    }
+
+    getDistanceToPlayer() {
+        let dx = this.player.x - this.x;
+        let dy = this.player.y - this.y;
+        let dist = Math.sqrt((dx * dx) + (dy * dy));
+        return dist;
+    }
+
+    trySuicideAttack() {
+        // tries to get close so explosion hurts more
+        if(this.getDistanceToPlayer() < this.explosionRadius) {
+            this.die();
+        }
     }
 
 }
