@@ -43,10 +43,15 @@ class Enemy extends Entity {
 
     die() {
         this.explode();
-        window.score += 100;
+        window.score += 100 * window.scoreMultiplier;
         if (this.getDistanceToPlayer() < this.explosionRadius) {
             window.player.takeDamage(this.explosionDamage * (1/this.getDistanceToPlayer()));
         }
+        let currentTime = (new Date()).getTime();
+        if(currentTime - window.lastKillTime < (window.multExpireTime / 2)) {
+            window.scoreMultiplier++;
+        }
+        window.lastKillTime = currentTime;
         delete window.entities[this.id];
     }
 

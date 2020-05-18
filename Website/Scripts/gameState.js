@@ -40,6 +40,7 @@ class Game {
             particle.draw();
         });
         this.drawScore(window.palette.active.bright);
+        this.checkKillTimeExpire();
     }
 
     clickEvent() {
@@ -54,11 +55,23 @@ class Game {
     }
 
     drawScore() {
+        let scoreText = `${window.score}`;
+        if(window.scoreMultiplier > 1) {
+            scoreText = `${window.score} x${window.scoreMultiplier}`;
+        }
         ctx.font = "70px Poppins";
         ctx.fillStyle = window.palette.active.primary;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(`${window.score}`, (window.canvas.width/2), (window.borderWidth + 50));
+        ctx.fillText(scoreText, (window.canvas.width/2), (window.borderWidth + 50));
+    }
+
+    checkKillTimeExpire() {
+        console.log(((new Date()).getTime() - window.lastKillTime));
+        console.log((window.lastKillTime));
+        if(((new Date()).getTime() - window.lastKillTime) > window.multExpireTime) {
+            window.scoreMultiplier = 1;
+        }
     }
 
 }

@@ -39,7 +39,7 @@ function init() {
     // initialising the screen. One global variable holds a function to loop the current screen.
     // The function is switched out for different screen states.
     // Each state must have it's own update, draw and swich state logic.
-    window.activeGameState = new Game();
+    window.activeGameState = new Start();
 
     // There are too many things going on that require a click so i'm installing some logic to check what state the game is in.
     window.addEventListener('click', () => {
@@ -59,6 +59,12 @@ function init() {
 
     // the score for the game. Obvs.
     window.score = 0;
+    window.scoreMultiplier = 1;
+
+    // used to calculate time between kills for the score multiplier.
+    window.lastKillTime = 0;
+    // time until multipier resets
+    window.multExpireTime = 1000;
 
     // the width of the game border (player cannot pass it)
     window.borderWidth = 20;
