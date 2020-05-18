@@ -45,7 +45,7 @@ class Enemy extends Entity {
         this.explode();
         window.score += 100 * window.scoreMultiplier;
         if (this.getDistanceToPlayer() < this.explosionRadius) {
-            window.player.takeDamage(this.explosionDamage * (1/this.getDistanceToPlayer()));
+            window.player.takeDamage(this.explosionDamage * (1/this.getDistanceToPlayer()) * 10);
         }
         let currentTime = (new Date()).getTime();
         if(currentTime - window.lastKillTime < (window.multExpireTime / 2)) {

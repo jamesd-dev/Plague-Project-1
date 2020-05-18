@@ -1,7 +1,7 @@
 class Player extends Entity {
     
     constructor(x, y) {
-        super(x, y, 0.2, 10, window.palette.active.primary, window.palette.active.secondary, 30);
+        super(x, y, 0.2, 10, window.palette.active.primary, window.palette.active.secondary, 500);
         this.turretLength = 20;
         // ensures that there can only be one player in game.
         window.player = this;
@@ -60,7 +60,6 @@ class Player extends Entity {
 
         let maxBarWidth = this.size * 2;
         let backColour = this.secColour;
-        let barColour = window.palette.active.bright;
 
         let healthPercent = this.health / this.maxHealth;
         let barWidth = maxBarWidth * healthPercent;
@@ -133,7 +132,9 @@ class Player extends Entity {
     die() {
         this.explode();
         // lose game
-        window.activeGameState = new Lose();
+        setTimeout(() => {
+            window.activeGameState = new Lose();
+        }, 3000);
         delete window.player;
     }
 
