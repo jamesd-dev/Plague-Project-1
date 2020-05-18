@@ -67,8 +67,6 @@ class Game {
     }
 
     checkKillTimeExpire() {
-        console.log(((new Date()).getTime() - window.lastKillTime));
-        console.log((window.lastKillTime));
         if(((new Date()).getTime() - window.lastKillTime) > window.multExpireTime) {
             window.scoreMultiplier = 1;
         }

@@ -1,7 +1,9 @@
 class Spawner {
     constructor() {
         this.waves = [
-            new Wave(50, 10, 100, 100)
+            new Wave(50, 10, 100),
+            new Wave(70, 10, 70),
+            new Wave(200, 100, 50)
         ];
 
         this.currentWave = -1;
@@ -19,7 +21,10 @@ class Spawner {
     }
 
     playNextWave() {
+        this.waveComplete = false;
+        window.entities = {};
         setTimeout(() => {
+            window.entities = {};
             if(!this.isLastWave()) {
                 this.currentWave++;
                 this.waveComplete = false;
@@ -56,10 +61,9 @@ class Spawner {
 
 class Wave {
 
-    constructor(maxHealth, minHealth, number, maxEnemies) {
+    constructor(maxHealth, minHealth, number) {
         this.maxHealth = maxHealth;
         this.minHealth = minHealth;
-        this.maxEnemies = maxEnemies;
 
         // not really enemies, just their health. but that's the only variable stat, so the spawner can do the rest.
         this.enemies = [];
