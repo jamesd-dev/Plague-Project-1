@@ -25,6 +25,7 @@ class Win extends State {
             super.drawCenteredText('Click To Restart', window.palette.active.bright);
             this.drawScore(window.palette.active.bright);
             this.drawWin(window.palette.active.bright);
+            this.drawHighscore(window.palette.active.bright);
         }
     }
 
@@ -34,6 +35,21 @@ class Win extends State {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(`Score: ${window.score}`, (window.canvas.width/2), (window.canvas.height/1.3));
+    }
+
+    drawHighscore(color) {
+
+        let text = `Highscore: ${window.highscore}`;
+
+        if(window.highscore < window.score) {
+            text = `!!! New Highscore: ${window.score} !!!`;
+        }
+
+        ctx.font = "1.5rem Poppins";
+        ctx.fillStyle = color;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, (window.canvas.width/2), (window.canvas.height/1.15));
     }
 
     drawWin(color) {

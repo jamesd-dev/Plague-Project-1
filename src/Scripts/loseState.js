@@ -25,6 +25,7 @@ class Lose extends State {
             super.drawCenteredText('Click To Try Again', window.palette.active.bright);
             this.drawScore(window.palette.active.bright);
             this.drawWin(window.palette.active.bright);
+            this.drawHighscore(window.palette.active.bright);
         }
     }
 
@@ -46,6 +47,21 @@ class Lose extends State {
 
     clickEvent() {
         super.clickEvent();
+    }
+
+    drawHighscore(color) {
+
+        let text = `Highscore: ${window.highscore}`;
+
+        if(window.highscore < window.score) {
+            text = `!!! New Highscore: ${window.score} !!!`;
+        }
+
+        ctx.font = "1.5rem Poppins";
+        ctx.fillStyle = color;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, (window.canvas.width/2), (window.canvas.height/1.15));
     }
 
 }

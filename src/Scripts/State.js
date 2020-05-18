@@ -57,6 +57,10 @@ class State {
         this.visibleText = true;
         // For things to check what game state is active
         this.state = 'start';
+        window.highscore = this.getHighscore();
+        if(window.highscore < window.score) {
+            this.saveHighscore();
+        }
     }
 
     drawCenteredText(text, color) {
@@ -94,5 +98,18 @@ class State {
     mouseDownEvent() {}
 
     mouseUpEvent() {}
+
+    saveHighscore() {
+        window.localStorage.setItem('highscore', window.score);
+    }
+
+    getHighscore() {
+        let hs = parseInt(window.localStorage.getItem('highscore'));
+        if (hs) {
+            return hs;
+        } else {
+            return 0;
+        }
+    }
 
 }

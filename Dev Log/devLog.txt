@@ -51,4 +51,5 @@ Solution involves the intercection of a circle, but... crumbs, I really want to 
 - the code is getting messier, but ack, I really can't be arsed to make it cleaner at this point when i'm just adding cosmetic details.
 - added multiple waves and fixed some bugs in how new waves are loaded.
 - altered player health and enemy damage to make the game harder.
+- enabled the game to save highscore to memory and display it at win/lose screen
 

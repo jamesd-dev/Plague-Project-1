@@ -60,6 +60,7 @@ function init() {
     // the score for the game. Obvs.
     window.score = 0;
     window.scoreMultiplier = 1;
+    window.highscore = 0;
 
     // used to calculate time between kills for the score multiplier.
     window.lastKillTime = 0;
