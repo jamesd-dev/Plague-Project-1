@@ -40,6 +40,7 @@ class Game {
             particle.draw();
         });
         this.drawScore(window.palette.active.bright);
+        this.drawWaveTitle();
         this.checkKillTimeExpire();
     }
 
@@ -52,6 +53,18 @@ class Game {
 
     mouseDownEvent() {
         window.player.mouseDownEvent();
+    }
+
+    drawWaveTitle() {
+        let waveText = '';
+        if(this.spawner.currentWave > -1) {
+            waveText = `Wave ${this.spawner.currentWave}`;
+        }
+        ctx.font = "900 20px Poppins";
+        ctx.fillStyle = window.palette.active.primary;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(waveText, (window.canvas.width/2), (window.borderWidth + 90));
     }
 
     drawScore() {
