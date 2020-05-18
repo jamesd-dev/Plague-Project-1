@@ -18,7 +18,7 @@ class Game {
                 // win
                 setTimeout(() => {
                     window.activeGameState = new Win();
-                }, 3000);
+                }, 2000);
             } else {
                 this.spawner.playNextWave();
             }

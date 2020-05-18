@@ -1,7 +1,7 @@
 class Player extends Entity {
     
     constructor(x, y) {
-        super(x, y, 0.2, 10, window.palette.active.primary, window.palette.active.secondary, 100);
+        super(x, y, 0.2, 10, window.palette.active.primary, window.palette.active.secondary, 30);
         this.turretLength = 20;
         // ensures that there can only be one player in game.
         window.player = this;
@@ -99,6 +99,7 @@ class Player extends Entity {
     }
 
     mouseDownEvent() {
+        clearInterval(this.laserBuilder);
         this.laserBuilder = setInterval(() => {
             if(window.activeGameState.state != 'game') {
                 clearInterval(this.laserBuilder);

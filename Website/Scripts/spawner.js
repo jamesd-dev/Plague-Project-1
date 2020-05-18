@@ -2,8 +2,8 @@ class Spawner {
     constructor() {
         this.waves = [
             new Wave(50, 10, 100),
-            new Wave(70, 10, 70),
-            new Wave(200, 100, 50)
+            new Wave(10, 1, 700),
+            new Wave(200, 100, 50),
         ];
 
         this.currentWave = -1;
@@ -35,7 +35,7 @@ class Spawner {
                     }
                     let pos = this.getRandomBorderPosition();
                     new Enemy(pos.x, pos.y, this.waves[this.currentWave].enemies.pop());
-                }, 200);
+                }, 1/ (this.waves[this.currentWave].enemies.length / 10000));
             }
         }, 3000);
     }
