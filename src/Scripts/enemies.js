@@ -2,13 +2,17 @@ class Enemy extends Entity {
 
     constructor(x, y, health, speed) {
         super(x, y, 0.3, 1, window.palette.active.primary, window.palette.active.secondary, health);
+        this.maxHealth = health;
+        this.health = health;
         this.size = Math.sqrt(this.health);
 
-        // make speed dependant on size, but speed must be a low number
+        // make speed dependant on size
+        // much more fun weaving around big lumbering enemies while the lil' uns chase you.
         this.speed = (1 / this.size) * speed;
+
         // radius at which the explosion on death will damage player
-        this.explosionRadius = 20;
-        this.explosionDamage = Math.pow(this.health, 1.5);
+        this.explosionRadius = 80;
+        this.explosionDamage = this.maxHealth * 100;
         // adds entity to entities list, used to loop through and draw/update all entities
         window.entities[this.id] = this;
     }
@@ -16,7 +20,6 @@ class Enemy extends Entity {
     update() {
         if(window.player != undefined) {
             this.size = Math.sqrt(this.health) + 3;
-            this.explosionDamage = Math.pow(this.health, 1.5);
             this.seek(window.player.x, window.player.y, () => {return false;});
             this.trySuicideAttack();
         }
@@ -47,8 +50,9 @@ class Enemy extends Entity {
     die() {
         this.explode();
         window.score += 100 * window.scoreMultiplier;
+        // like a real explosion, the closer you are the more it hurts
         if (this.getDistanceToPlayer() < this.explosionRadius) {
-            window.player.takeDamage(this.explosionDamage);
+            window.player.takeDamage(this.explosionDamage/this.getDistanceToPlayer());
         }
         let currentTime = (new Date()).getTime();
         if(currentTime - window.lastKillTime < (window.multExpireTime / 2)) {
@@ -97,7 +101,7 @@ class Enemy extends Entity {
 
     trySuicideAttack() {
         // tries to get close so explosion hurts more
-        if(this.getDistanceToPlayer() < this.explosionRadius * 0.9) {
+        if(this.getDistanceToPlayer() < this.explosionRadius * 0.2) {
             this.die();
         }
     }

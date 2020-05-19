@@ -7,7 +7,7 @@ class Spawner {
     constructor() {
         this.waves = [
             new Wave(100, 1, 100, 7),
-            new Wave(10, 5, 150, 7),
+            new Wave(200, 1, 150, 8),
             // new Wave(10, 1, 200),
             // new Wave(200, 100, 50),
         ];
@@ -75,6 +75,8 @@ class Spawner {
 
 class Wave {
 
+    // include a speed variable for the wave enemies. The game is a lot more panic inducing with fast enemies
+    // and weaving between them is super fun.
     constructor(maxHealth, minHealth, number, speed) {
         this.maxHealth = maxHealth;
         this.minHealth = minHealth;
@@ -97,7 +99,9 @@ class Wave {
         // random between 0 and r1
         let r2 = Math.random() * r1;
 
-        let health = (r2 * (this.maxHealth - this.minHealth)) + this.minHealth;
+        let r3 = Math.random() * r2;
+
+        let health = (r3 * (this.maxHealth - this.minHealth)) + this.minHealth;
 
         return health;
 

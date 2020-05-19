@@ -3,6 +3,8 @@ class Player extends Entity {
     constructor(x, y) {
         super(x, y, 0.5, 10, window.palette.active.primary, window.palette.active.secondary, 500);
         this.turretLength = 20;
+        // how much health the player regenerates per frame
+        this.healthRegen = 0.1;
         // ensures that there can only be one player in game.
         // had trouble with too many references to the player floating around. This makes all
         // references easy to kill.
@@ -10,6 +12,11 @@ class Player extends Entity {
     }
 
     update() {
+
+        this.regenHealth();
+    
+        // this used to be a parent function, but the enemy script needed a diffent kind  of speed in the end than the player
+        // as the player has to weave and dodge while the enemy just chases.
 
         // removes some of the jitter when the target is reached.
         let targetX = window.mouse.x - 2;
@@ -104,6 +111,13 @@ class Player extends Entity {
         window.ctx.fillStyle = backColour;
         window.ctx.fillRect(barX + window.offset.x, barY + window.offset.y, barWidth, barHeight);
 
+    }
+
+    regenHealth() {
+        this.health += this.healthRegen;
+        if(this.health > this.maxHealth) {
+            this.health = this.maxHealth;
+        }
     }
 
     // tests projected x and y for collisions

@@ -53,3 +53,10 @@ Solution involves the intercection of a circle, but... crumbs, I really want to 
 - altered player health and enemy damage to make the game harder.
 - enabled the game to save highscore to memory and display it at win/lose screen
 
+19-05-20
+- did oodles of commenting to make the code more readable
+- updated the speed mechanics of enemy and player to make the game more exciting and scary
+- increased the explosion radius of the enemies so you cant just sit and spin to kill them before they can hurt you.
+- increased the enemy damage so the game is way harder.
+- added a small amount of health regen to the player each turn so you can heal if you run away for long enough.
+
