@@ -1,3 +1,8 @@
+// A strutures used to easily make waves of enemies.
+// The wave object generates a random range of enemies given parameters such as
+// health and the number of enemies.
+// The spawner takes that list of generated enemies and creates them over a period of time.
+// The spawner also manages waves, calling the next one and signalling when there are no more.
 class Spawner {
     constructor() {
         this.waves = [
@@ -21,21 +26,28 @@ class Spawner {
     }
 
     playNextWave() {
+        // ensures that the program know that a new wave is on the way and not simply over.
         this.waveComplete = false;
+        // resets list of enemies, to make sure no ghosts remain in the system
         window.entities = {};
+        // pause between waves to allow the player a breather
         setTimeout(() => {
-            window.entities = {};
+            // checks that there is a wave to go to
             if(!this.isLastWave()) {
                 this.currentWave++;
-                this.waveComplete = false;
+                // creates an enemy from the list every x milliseconds
+                // stops the player being flooded and really helps performace
                 this.spawnInterval = setInterval(() => {
+                    // checks if there are any more enemies in the wave to create
                     if(this.waves[this.currentWave].enemies.length <= 1) {
+                        // if not, kills loops and signals that the wave is complete
                         this.waveComplete = true;
                         clearInterval(this.spawnInterval);
                     }
                     let pos = this.getRandomBorderPosition();
                     new Enemy(pos.x, pos.y, this.waves[this.currentWave].enemies.pop());
-                }, 1/ (this.waves[this.currentWave].enemies.length / 10000));
+
+                }, 1/ (this.waves[this.currentWave].enemies.length / 10000)); // loop time is faster the more enemies there are
             }
         }, 3000);
     }
@@ -74,6 +86,8 @@ class Wave {
 
     }
 
+    // uses a trick to make the probability graph tilt towards the lower numbers.
+    // you only want a few harder enemies in a wave.
     getRandomHealth() {
         // should make low numbers more likely
         // random between 0 and 1;
