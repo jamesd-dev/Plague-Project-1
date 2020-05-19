@@ -1,7 +1,7 @@
 class Player extends Entity {
     
     constructor(x, y) {
-        super(x, y, 0.2, 10, window.palette.active.primary, window.palette.active.secondary, 500);
+        super(x, y, 0.5, 10, window.palette.active.primary, window.palette.active.secondary, 500);
         this.turretLength = 20;
         // ensures that there can only be one player in game.
         // had trouble with too many references to the player floating around. This makes all
@@ -11,7 +11,34 @@ class Player extends Entity {
 
     update() {
 
-        super.seek(window.mouse.x, window.mouse.y, this.isColliding, this);
+        // removes some of the jitter when the target is reached.
+        let targetX = window.mouse.x - 2;
+        let targetY = window.mouse.y - 2;
+
+         // get vector to target
+         let dx = targetX - this.x;
+         let dy = targetY - this.y;
+         let mag = Math.sqrt((dx * dx) + (dy * dy));
+ 
+         
+         //normalise vector
+         dx /= mag;
+         dy /= mag;
+ 
+         // using a fraction power makes it so the entity goes faster the further the target is from it.
+         // makes it feel more responsive.
+         // low exponent to make the effect more subtle.
+         dx = Math.pow(mag, this.speed) * dx;
+         dy = Math.pow(mag, this.speed) * dy;
+ 
+ 
+         // check if entity is colliding with anything.
+         // anything but the player will just have a false returning function.
+         if(!this.isColliding(this.x + dx, this.y + dy, this)) {
+             // apply change
+             this.x += dx;
+             this.y += dy;
+         }
 
     }
 
@@ -145,6 +172,8 @@ class Player extends Entity {
     die() {
         // calls particle explosion effect from Entity
         this.explode();
+        // remove all lasers (it's a bug)
+        clearInterval(this.laserBuilder);
         // lose game
         // pauses so the player can see explosions and makes the end less
         // jarring

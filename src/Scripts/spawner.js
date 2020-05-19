@@ -6,9 +6,10 @@
 class Spawner {
     constructor() {
         this.waves = [
-            new Wave(50, 10, 100),
-            new Wave(10, 1, 200),
-            new Wave(200, 100, 50),
+            new Wave(100, 1, 100, 7),
+            new Wave(10, 5, 150, 7),
+            // new Wave(10, 1, 200),
+            // new Wave(200, 100, 50),
         ];
 
         this.currentWave = -1;
@@ -45,7 +46,8 @@ class Spawner {
                         clearInterval(this.spawnInterval);
                     }
                     let pos = this.getRandomBorderPosition();
-                    new Enemy(pos.x, pos.y, this.waves[this.currentWave].enemies.pop());
+                    let enemy = this.waves[this.currentWave].enemies.pop();
+                    new Enemy(pos.x, pos.y, enemy.health, enemy.speed);
 
                 }, 1/ (this.waves[this.currentWave].enemies.length / 10000)); // loop time is faster the more enemies there are
             }
@@ -73,7 +75,7 @@ class Spawner {
 
 class Wave {
 
-    constructor(maxHealth, minHealth, number) {
+    constructor(maxHealth, minHealth, number, speed) {
         this.maxHealth = maxHealth;
         this.minHealth = minHealth;
 
@@ -81,7 +83,7 @@ class Wave {
         this.enemies = [];
 
         for(let i = 0; i < number; i++) {
-            this.enemies.push(this.getRandomHealth());
+            this.enemies.push({health: this.getRandomHealth(), speed: speed});
         }
 
     }

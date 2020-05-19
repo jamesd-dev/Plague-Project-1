@@ -1,8 +1,11 @@
 class Enemy extends Entity {
 
-    constructor(x, y, health) {
+    constructor(x, y, health, speed) {
         super(x, y, 0.3, 1, window.palette.active.primary, window.palette.active.secondary, health);
         this.size = Math.sqrt(this.health);
+
+        // make speed dependant on size, but speed must be a low number
+        this.speed = (1 / this.size) * speed;
         // radius at which the explosion on death will damage player
         this.explosionRadius = 20;
         this.explosionDamage = Math.pow(this.health, 1.5);

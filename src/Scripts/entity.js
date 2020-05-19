@@ -47,8 +47,8 @@ class Entity {
          // using a fraction power makes it so the entity goes faster the further the target is from it.
          // makes it feel more responsive.
          // low exponent to make the effect more subtle.
-         dx = Math.pow(mag, this.speed) * dx;
-         dy = Math.pow(mag, this.speed) * dy;
+         dx = Math.pow(this.speed, mag) * dx;
+         dy = Math.pow(this.speed, mag) * dy;
  
  
          // check if entity is colliding with anything.
