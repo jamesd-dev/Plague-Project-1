@@ -1,17 +1,17 @@
 // This script was supposed to be wrapped by a game manager class, but the big functions like
-// the game loop didn't play well with it, so it's all exposed in a script, but functionally the same.
+// the game loop didn't play well with it, so it's all exposed in a script, but it's functionally the same.
 
 // init sets up the most important global variables
 function init() {
     // Setting up the basic global canvas
     window.canvas = document.getElementById('main-canvas');
     window.ctx = canvas.getContext('2d');
+    // sets to fullscreen, though only when teh page first laods
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Appearence global variables
+    // global colour schemes
     window.palette = {};
-    // useful palettes stored for convinience
     window.palette.autumn = {
         kobe: '#7D220E',
         brownSugar: '#B56235',
@@ -59,6 +59,7 @@ function init() {
 
     // the score for the game. Obvs.
     window.score = 0;
+    // logic in state and win/lose states
     window.scoreMultiplier = 1;
     window.highscore = 0;
 
@@ -71,11 +72,15 @@ function init() {
     window.borderWidth = 20;
 
     // offset object used for creating camera tremble effect.
+    // creates a list of offset values then each update cycle uses one set each x and y
+    // every drawn object has offset added to it.
     window.offset = {
         x : 0,
         y : 0,
         shakePath : [],
         shake : (len) => {
+            // ensures that the shake can only be a certain length or less. explosions won't 
+            // stack for a much longer tremble.
             for(let i = 0; i < len - window.offset.shakePath.length; i++) {
                 window.offset.shakePath.push( (Math.random() * 3) - 1);
             }
@@ -106,13 +111,14 @@ function init() {
 
 }
 
-// Will reset all global conatiners for game items. like clear the particle list and delete the player object.
+// Will reset all global containers for game items. like clearing the particle list and deleting the player object.
 // Will not reset score.
 function resetGame() {
-    window.entities = {};
-    window.particles = {};
-    window.lasers = {};
-    window.player = undefined;
+    window.entities = {}; // see Enemy class
+    window.particles = {}; // see Explosion class
+    window.lasers = {}; // see Laser class
+    window.player = undefined; // see Player class
+    // clears any residual shake between games
     if(window.offset) {
         window.offset.x = 0;
         window.offset.y = 0;
@@ -125,6 +131,7 @@ function resetGame() {
 function clearCanvas() {
     window.ctx.fillStyle = window.palette.active.secondary;
     window.ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // draws the border
     window.ctx.fillStyle = window.palette.active.background;
     window.ctx.fillRect(window.borderWidth, window.borderWidth, canvas.width - (window.borderWidth * 2), canvas.height - (window.borderWidth * 2));
 }

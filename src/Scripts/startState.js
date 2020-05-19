@@ -1,3 +1,4 @@
+// start screen
 class Start extends State {
 
     constructor() {

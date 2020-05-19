@@ -1,3 +1,4 @@
+// lose screen
 class Lose extends State {
 
     constructor() {

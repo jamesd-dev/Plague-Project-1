@@ -4,6 +4,8 @@ class Player extends Entity {
         super(x, y, 0.2, 10, window.palette.active.primary, window.palette.active.secondary, 500);
         this.turretLength = 20;
         // ensures that there can only be one player in game.
+        // had trouble with too many references to the player floating around. This makes all
+        // references easy to kill.
         window.player = this;
     }
 
@@ -32,6 +34,7 @@ class Player extends Entity {
         window.ctx.closePath();
 
         // draw turret
+        // turret is just a line between player and mouse that gets shortened
         let dx = window.mouse.x - this.x;
         let dy = window.mouse.y - this.y;
         let mag = Math.sqrt((dx * dx) + (dy * dy));
@@ -53,11 +56,14 @@ class Player extends Entity {
         window.ctx.lineWidth = 0;
         window.ctx.closePath();
 
+        // lil floating health bar above player
         this.drawHealthBar();
     }
 
     drawHealthBar() {
 
+        // not going to explain how it works, but the barlength shinks as the player health does
+        // always stays centered over player.
         let maxBarWidth = this.size * 2;
         let backColour = this.secColour;
 
@@ -74,6 +80,7 @@ class Player extends Entity {
     }
 
     // tests projected x and y for collisions
+    // the player only collides with the outer border, so the logic is fairly simple.
     isColliding(x, y, entity) {
 
         // radius of player outer circle
@@ -89,16 +96,21 @@ class Player extends Entity {
     }
 
     clickEvent() {
-        //let mouseDirection = this.getMouseDirection();
-        //new Laser(this.x, this.y, mouseDirection.x, mouseDirection.y);
+        
     }
 
     mouseUpEvent() {
         clearInterval(this.laserBuilder);
     }
 
+    // lasers start firing when the mouse is held. enables fans of lasers,
+    // though it means that if you hold a laser on one enemy it deals tremendous damage because all the laser damage stacks.
     mouseDownEvent() {
+        // makes sure theres no existing interval.
+        // debugging for when right clicking with mouse down produced infinite lasers
         clearInterval(this.laserBuilder);
+
+        // temporary loop to produce a new laser object every millisecond
         this.laserBuilder = setInterval(() => {
             if(window.activeGameState.state != 'game') {
                 clearInterval(this.laserBuilder);
@@ -112,13 +124,14 @@ class Player extends Entity {
          // get vector to mouse
          let dx = window.mouse.x - this.x;
          let dy = window.mouse.y - this.y;
+         // get magnitide
          let mag = Math.sqrt((dx * dx) + (dy * dy));
  
-         
          //normalise vector
          dx /= mag;
          dy /= mag;
 
+         // vector direction
          return {x: dx, y: dy};
     }
 
@@ -130,11 +143,15 @@ class Player extends Entity {
     }
 
     die() {
+        // calls particle explosion effect from Entity
         this.explode();
         // lose game
+        // pauses so the player can see explosions and makes the end less
+        // jarring
         setTimeout(() => {
             window.activeGameState = new Lose();
         }, 3000);
+        // deletes the only direct player reference so that there are no ghosts.
         delete window.player;
     }
 

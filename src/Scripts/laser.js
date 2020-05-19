@@ -52,7 +52,7 @@ class Laser {
         }
 
         // because id is based on start and end points, any old lasers in the same position will be overwritten.
-        // way more efficient
+        // more efficient
         this.id = `${Math.round(this.startX)}${Math.round(this.startY)}${Math.round(this.endX)}${Math.round(this.endY)}`;
         window.lasers[this.id] = this;
 
@@ -60,6 +60,7 @@ class Laser {
 
     update() {
 
+        // kills laser after a certain time. Stops objects piling up
         this.lifetime *= this.decayRate;
         if(this.lifetime <= 0.01) {
             delete window.lasers[this.id];
@@ -69,6 +70,8 @@ class Laser {
 
     draw() {  
         window.ctx.beginPath();
+
+        // active palette bright, but adjusted to rgba so the alpha can be altered
         window.ctx.strokeStyle = `rgba(234, 222, 227, ${this.lifetime})`;
         window.ctx.lineWidth = this.laserWidth;
         window.ctx.moveTo(this.entity.x + window.offset.x, this.entity.y + window.offset.y);
@@ -81,11 +84,14 @@ class Laser {
         // list of x and y objects
         let collisions = [];
         
+        // collision calulations are split into functions because it gets complex.
         collisions = this.calculateBorderCollisions();
         collisions = collisions.concat(this.calculateEntityCollisions());
 
+        // there should *always* be at least one collision because of the borders
+        // infinite lines are bad for efficiency
         if(collisions.length > 0) {
-            // sort by distance from start
+            // sort by distance from start point
             collisions.sort((a, b) => {
                 return (this.getDistance(this.startX, this.startY, a.x, a.y) - this.getDistance(this.startX, this.startY, b.x, b.y));
             });
@@ -104,18 +110,23 @@ class Laser {
 
         let collisions = [];
 
+        // every enemy is just a circle, so this is the interscetion of a circle and a line
         Object.values(window.entities).forEach(entity => {
 
             // define two points on the line. The emmiting entity and a point past the edge of the canvas.
             let p1 = {x:this.startX, y:this.startY};
-            // I don't know why 100 at this point, it just seems to be large enough
+            // I don't know why 100 at this point, it just seems to be large enough to be beyond the colliding point.
             let p2 = {x:p1.x + (this.directionX * 100), y:p1.y + (this.directionY * 100)};
 
+            // sets the points to local coordinates relative to the circle
             let localP1 = {x: p1.x - entity.x, y: p1.y - entity.y};
             let localP2 = {x: p2.x - entity.x, y: p2.y - entity.y};
 
+            // commonly used in the next equations
             let p2minusp1 = {x: localP2.x - localP1.x, y: localP2.y - localP1.y};
 
+            // the result of subbing the line equation into the circle equation. 
+            // much simpler to break down on paper than in code, to this is the pared down version.
             let a = ((p2minusp1.x) * (p2minusp1.x)) + ((p2minusp1.y) * (p2minusp1.y));
             let b = 2 * ((p2minusp1.x * localP1.x) + (p2minusp1.y * localP1.y));
             let c = (localP1.x * localP1.x) + (localP1.y * localP1.y) - (entity.size * entity.size);
@@ -125,10 +136,8 @@ class Laser {
 
             if(
                 entity != this.entity && // makes sure the laser doesn't collide with the entity emmiting it
-                this.isSameDirection(this.startX, this.startY, entity.x, entity.y) &&
-                // offset < entity.size &&
-                // offset > -entity.size
-                delta >= 0
+                this.isSameDirection(this.startX, this.startY, entity.x, entity.y) && // makes sure the collision is in front of the laser, not behind it.
+                delta >= 0 // delta = -1 means no intercetions, 0 means 1 and 1 means 2. if the laser collides at least once it has hit the target.
 
             ) {
                 collisions.push({x:entity.x, y:entity.y, e:entity});
@@ -142,17 +151,24 @@ class Laser {
 
     // returns true if the collision is in the same direction as the laser
     isSameDirection(startX, startY, targetX, targetY) {
+
+        // get normalised vector from start to target
         let colDirX = targetX - startX;
         let colDirY = targetY - startY;
+
         let colDirMag = Math.sqrt((colDirX * colDirX) + (colDirY * colDirY));
+
         colDirX /= colDirMag;
         colDirY /= colDirMag;
+
+        // tests if the two directions are roughly the same
         let fuzzyX = colDirX - this.directionX;
         let fuzzyY= colDirY - this.directionY;
         if (
             Math.abs(fuzzyX) < 0.1 &&
             Math.abs(fuzzyY) < 0.1
         ) {return true;}
+        
         return false;
     }
 
