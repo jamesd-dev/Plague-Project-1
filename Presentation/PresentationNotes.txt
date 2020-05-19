@@ -1,0 +1,57 @@
+SLIDE 1
+    - INTRO
+        - hello
+SLIDE 2
+    - GAME OVERVIEW
+        - Simple game where you control a turret to shoot little blobs with a laser
+SLIDE 3
+    - FEATURES
+        - LASER
+            - The turret fires a laser
+            - it can produces fans of lasers if the laser is held and the player turns
+            - it detects collisions with the borders and enemies
+        - Explosions
+            - When enemies die they trigger a particle effect I made with basic canvas shapes.
+            - it's just a bunch of small circles, but they each have a lifetime and velocity so they animate themselves
+        - MOUSE FOLLOW
+            - turret chases after the mouse
+            - the further away the mouse is the faster the turret moves
+            - makes for more natural and more stratigic movement
+        - MISC
+            - The game has a lot of other features too
+                - camerashake
+                - waves of enemies
+                - highscores
+                - falloff damage for the Explosions
+                - but I don't really have time to go through all of them
+SLIDE 4
+    - GREATEST TECHNICAL CHALLENGE
+        - Laser had to collide with the enemy
+        - both to cause damage and to know how long the laser had to be
+        - infinite lines are super bad for performance
+        - Spent about half a day working out the math for how circles and lines interact
+        - in the end i found an equation for finding the number of intersections between a circle and a line
+        - there was a more complicated equation for finding the exact point of contact, but I only needed to know if the laser hit or not
+        - I'll spare you the math which involved subbing the line equation into the circle equation and doing a lot of algebra
+        - but in the end I got some neat code that told me if the laser hit a circle/enemy.
+SLIDE 5
+    - BIGGEST MISTAKE
+        - I actually managed to dodge a lot of big mistakes by spending an hour drawing out the program on paper and making sure it was properly organised.
+        - One of the problems I did have though was when the player died I kept getting ghost players
+            - randomly explode and fire lasers, usually at the player
+        - This was because every enemy kept a reference to the player, so it could follow it
+        - there was also a refence to the player in the list of enemies so I could loop through all of them to update positions more easily.
+        - when the player died, it deleted itself from the list, but all the enemies kept their references
+        - this created ghost players in the next game.
+SLIDE 6
+    - BIGGEST MISTAKE 2
+        - I fixed it by only having one refence to the player, stored in window
+        - the enemies all used the global variable to track the player instead of using a reference
+        - when the player dies it destroys the one global reference so nothing else can access it.
+        - It took a little while to weed out all of the scattered references, but this solved the problem completely.
+SLIDE 7
+    - DEMO
+SLIDE 8
+    - END
+        - Thanks for listening
+        - Questions?
