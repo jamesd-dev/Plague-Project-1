@@ -6,9 +6,11 @@ class Enemy extends Entity {
         this.health = health;
         this.size = Math.sqrt(this.health);
 
+        // so speed can be updated later
+        this.baseSpeed = speed;
         // make speed dependant on size
         // much more fun weaving around big lumbering enemies while the lil' uns chase you.
-        this.speed = (1 / this.size) * speed;
+        this.speed = (1 / this.size) * this.baseSpeed;
 
         // radius at which the explosion on death will damage player
         this.explosionRadius = 80;
@@ -19,6 +21,7 @@ class Enemy extends Entity {
 
     update() {
         if(window.player != undefined) {
+            this.speed = (1 / this.size) * this.baseSpeed;
             this.size = Math.sqrt(this.health) + 3;
             this.seek(window.player.x, window.player.y, () => {return false;});
             this.trySuicideAttack();

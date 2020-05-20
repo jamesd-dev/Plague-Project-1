@@ -198,4 +198,11 @@ class Player extends Entity {
         delete window.player;
     }
 
+    explode() {
+        for (let i = 0; i < 50; i++) {
+            new PlayerExplosionParticle(this.x, this.y);
+        }
+        window.offset.shake(50);
+    }
+
 }

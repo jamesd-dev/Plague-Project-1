@@ -60,3 +60,5 @@ Solution involves the intercection of a circle, but... crumbs, I really want to 
 - increased the enemy damage so the game is way harder.
 - added a small amount of health regen to the player each turn so you can heal if you run away for long enough.
 
+20-05-20
+- Made special player explosions which are way bigger and flashier.

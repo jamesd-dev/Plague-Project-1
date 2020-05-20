@@ -6,8 +6,8 @@
 class Spawner {
     constructor() {
         this.waves = [
-            new Wave(100, 1, 100, 7),
-            new Wave(200, 1, 150, 8),
+            new Wave(1000, 1, 100, 7),
+            new Wave(2000, 1, 150, 8),
             // new Wave(10, 1, 200),
             // new Wave(200, 100, 50),
         ];
@@ -97,11 +97,12 @@ class Wave {
         // random between 0 and 1;
         let r1 = Math.random();
         // random between 0 and r1
-        let r2 = Math.random() * r1;
+        
+        for(let i = 0; i < 3; i++) {
+            r1 = Math.random() * r1;
+        } 
 
-        let r3 = Math.random() * r2;
-
-        let health = (r3 * (this.maxHealth - this.minHealth)) + this.minHealth;
+        let health = (r1 * (this.maxHealth - this.minHealth)) + this.minHealth;
 
         return health;
 
