@@ -5,27 +5,14 @@ SLIDE 2
     - GAME OVERVIEW
         - Simple game where you control a turret to shoot little blobs with a laser
 SLIDE 3
-    - FEATURES
-        - LASER
-            - The turret fires a laser
-            - it can produces fans of lasers if the laser is held and the player turns
-            - it detects collisions with the borders and enemies
-        - Explosions
-            - When enemies die they trigger a particle effect I made with basic canvas shapes.
-            - it's just a bunch of small circles, but they each have a lifetime and velocity so they animate themselves
-        - MOUSE FOLLOW
-            - turret chases after the mouse
-            - the further away the mouse is the faster the turret moves
-            - makes for more natural and more stratigic movement
-        - MISC
-            - The game has a lot of other features too
-                - camerashake
-                - waves of enemies
-                - highscores
-                - falloff damage for the Explosions
-                - but I don't really have time to go through all of them
+    - EXPLOSIONS
+	- made with a lot of small objects
+	- each with a velocity, acceleration, lifetime, size
+	- each had some logic to animate it over time
+	- lesson: interesting to see how big and dramatic results can be made by combining small simple independent things
+	- Also amazing to see how much they added to the game. Simple to make, but there's a real child-like glee to be found in making little dots explode
 SLIDE 4
-    - GREATEST TECHNICAL CHALLENGE
+    - COLLISIONS
         - Laser had to collide with the enemy
         - both to cause damage and to know how long the laser had to be
         - infinite lines are super bad for performance
@@ -34,30 +21,34 @@ SLIDE 4
         - there was a more complicated equation for finding the exact point of contact, but I only needed to know if the laser hit or not
         - I'll spare you the math which involved subbing the line equation into the circle equation and doing a lot of algebra
         - but in the end I got some neat code that told me if the laser hit a circle/enemy.
-SLIDE 5
-    - CHALLENGE
-        - I actually managed to dodge a lot of big mistakes by spending an hour drawing out the program on paper and making sure it was properly organised.
-        - One of the problems I did have though was when the player died I kept getting ghost players
-            - randomly explode and fire lasers, usually at the player
-        - This was because every enemy kept a reference to the player, so it could follow it
-        - there was also a reference to the player in the list of enemies so I could loop through all of them to update positions more easily.
-        - when the player died, it deleted itself from the list, but all the enemies kept their references
-        - this created ghost players in the next game.
-SLIDE 6
-    - CHALLENGE 2
-        - I fixed it by only having one reference to the player, stored in window
-        - the enemies all used the global variable to track the player instead of using a reference
-        - when the player dies it destroys the one global reference so nothing else can access it.
-        - It took a little while to weed out all of the scattered references, but this solved the problem completely.
-SLIDE 7
-	- CHALLENGE 3
-		- One of the major issues I had in the game in general was performance
-		- There's so much going on, and so many calculations run per loop that I had to put a lot of effort into saving performance where I could.
-		- Late in the project I developed a feature where a large enemy could split apart into lots of smaller ones.
-		- By tying this feature to how many enemies were currently in game, I was able to constantly refresh the enemy numbers when the player killed them, and never have more than 100 enemies in game at any one moment.
-		- I found that using tricks like this could make the game run faster, without cutting back on any of the elements that made it fun.
+	- Lesson: you don't need to know everything.
+	- you just need to be able to break something down into the right questions then go out and ask them
+	- I don't know anything about circles and line, but I knew I had to get an equation concerning the two
+	- and that was close enough to google.
 SLIDE 8
     - DEMO
+	- Efficiency
+		- lots of enemies, particle effects, laser
+		- lot of what I did was adding a cool new feature, then spending a day working out how to make it not kill my computer.
+		- Explosions have a lot of objects, that all have to be updated.
+			- make many, destroy faster. Flash bang effect
+		- Enemies
+			- small enemies are fast but big ones damage
+			- player kills all the small enemies first
+			- left with a load of slow big enemies to pick off.
+			- played with adding huge numbers of small enemies
+			- too many enemies killed the efficiency
+			- solution was to occasionally make a big enemy break apart into a lot of little ones
+			- population control
+			- max 100
+			- once the player killed a load the change to split went way up
+			- meant I didn't have to include many enemies at the start
+		- mouse control
+			- faster further away
+			- good for dodging
+		- big explosion for player
+		- waves
+		- highscore
 SLIDE 9
     - END
         - Thanks for listening
