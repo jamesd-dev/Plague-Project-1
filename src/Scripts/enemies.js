@@ -14,7 +14,7 @@ class Enemy extends Entity {
 
         // radius at which the explosion on death will damage player
         this.explosionRadius = 80;
-        this.explosionDamage = (this.maxHealth * 100 > 1) ? this.maxHealth * 100 : 1;
+        this.explosionDamage = (this.maxHealth * 100 > 5) ? this.maxHealth * 100 : 5;
 
         // used to produce the shaking before the enemy splits
         this.shakeOffset = {
@@ -22,9 +22,6 @@ class Enemy extends Entity {
             y: 0,
             shakePath: []
         };
-
-        // chance every frame of the cell starting a split event (between 0 and 1);
-        this.splitChance = 0.0001;
 
         // adds entity to entities list, used to loop through and draw/update all entities
         window.entities[this.id] = this;
@@ -34,7 +31,7 @@ class Enemy extends Entity {
         if(window.player != undefined) {
             // the more enemies they are the less likely it is that they will split.
             // should help the performance
-            if(Math.random() < (1 / (Math.pow(Object.values(window.entities).length, 3))) && this.health > 20) {
+            if(Math.random() < (1 / (Math.pow(Object.values(window.entities).length, 2))) && this.health > 20 && Object.values(window.entities).length < 100) {
                 this.split();
             }
             this.applyShake();
@@ -129,7 +126,6 @@ class Enemy extends Entity {
     // mostly stolen from the camera shake functions
     // shakes the enemy then splits into small enemies.
     split() {
-        console.log('split');
         for(let i = 0; i < 500 - this.shakeOffset.shakePath.length; i++) {
             this.shakeOffset.shakePath.push( (Math.random() * 3) - 1);
         }
@@ -140,7 +136,9 @@ class Enemy extends Entity {
             this.shakeOffset.x = this.shakeOffset.shakePath.pop();
             this.shakeOffset.y = this.shakeOffset.shakePath.pop();
             if(this.shakeOffset.shakePath.length <= 2) {
-                this.splitEnemy();
+                if (Object.values(window.entities).length < 100) {
+                    this.splitEnemy();
+                }
             }
         } else {
             this.shakeOffset.x = 0;
@@ -150,10 +148,10 @@ class Enemy extends Entity {
 
     // splits enemy into a bunch of smaller enemies, which all add up to the same size
     splitEnemy() {
-       while(this.health * 0.1> 1) {
+       while(this.health * 0.1> 0.5) {
             let healthFrag = this.health * 0.1;
             this.health -= healthFrag;
-            new Enemy(this.x + (Math.random() * 5) - 5, this.y + (Math.random() * 5) - 5, healthFrag, this.baseSpeed);
+            new Enemy(this.x + (Math.random() * 20) - 20, this.y + (Math.random() * 20) - 20, healthFrag, this.baseSpeed);
         }
         this.die();
     }
