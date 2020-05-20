@@ -131,11 +131,14 @@ class Enemy extends Entity {
         }
     }
 
+    // runs each update loop to process any shake if it exists
     applyShake() {
         if(this.shakeOffset.shakePath.length >= 2) {
             this.shakeOffset.x = this.shakeOffset.shakePath.pop();
             this.shakeOffset.y = this.shakeOffset.shakePath.pop();
+            // only splits of the shake has just finished.
             if(this.shakeOffset.shakePath.length <= 2) {
+                // limits how many enemies can exist in game
                 if (Object.values(window.entities).length < 100) {
                     this.splitEnemy();
                 }
@@ -146,13 +149,17 @@ class Enemy extends Entity {
         }
     }
 
-    // splits enemy into a bunch of smaller enemies, which all add up to the same size
+    // splits enemy into a bunch of smaller enemies
     splitEnemy() {
+        // safety measure to stop the game producing too many enemies to process. 
+        // Or making a bunch of tiny enemies that are way too small to track.
        while(this.health * 0.1> 0.5 && Object.values(window.entities).length < 100) {
             let healthFrag = this.health * 0.1;
             this.health -= healthFrag;
             new Enemy(this.x + (Math.random() * 80) - 40, this.y + (Math.random() * 80) - 40, healthFrag, this.baseSpeed);
         }
+        // always kill the splitting enemy.
+        // also profides a handy dandy explosion to cover up the split.
         this.die();
     }
 

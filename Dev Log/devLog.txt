@@ -62,3 +62,5 @@ Solution involves the intercection of a circle, but... crumbs, I really want to 
 
 20-05-20
 - Made special player explosions which are way bigger and flashier.
+- Made the enemies able to break apart into lots of smaller enemies, helps keep numbers of small mobile enemies high throughout the game.
+- messed with laser damage and explosions and speed variables to make the split feature more managable.
