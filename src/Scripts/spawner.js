@@ -6,8 +6,8 @@
 class Spawner {
     constructor() {
         this.waves = [
-            new Wave(1000, 1, 100, 7),
-            new Wave(2000, 1, 150, 8),
+            new Wave(1000, 1, 100, 9),
+            new Wave(2000, 1, 150, 10),
             // new Wave(10, 1, 200),
             // new Wave(200, 100, 50),
         ];

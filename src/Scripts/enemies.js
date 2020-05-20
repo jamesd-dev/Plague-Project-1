@@ -22,7 +22,7 @@ class Enemy extends Entity {
     update() {
         if(window.player != undefined) {
             this.speed = (1 / this.size) * this.baseSpeed;
-            this.size = Math.sqrt(this.health) + 3;
+            this.size = Math.sqrt(this.health) + 1;
             this.seek(window.player.x, window.player.y, () => {return false;});
             this.trySuicideAttack();
         }
