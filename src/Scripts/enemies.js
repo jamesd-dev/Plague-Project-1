@@ -34,7 +34,7 @@ class Enemy extends Entity {
         if(window.player != undefined) {
             // the more enemies they are the less likely it is that they will split.
             // should help the performance
-            if(Math.random() < (1 / (Object.values(window.entities).length * 1000)) && this.health > 20) {
+            if(Math.random() < (1 / (Math.pow(Object.values(window.entities).length, 3))) && this.health > 20) {
                 this.split();
             }
             this.applyShake();
