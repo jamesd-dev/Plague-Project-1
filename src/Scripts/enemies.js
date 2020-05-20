@@ -148,10 +148,10 @@ class Enemy extends Entity {
 
     // splits enemy into a bunch of smaller enemies, which all add up to the same size
     splitEnemy() {
-       while(this.health * 0.1> 0.5) {
+       while(this.health * 0.1> 0.5 && Object.values(window.entities).length < 100) {
             let healthFrag = this.health * 0.1;
             this.health -= healthFrag;
-            new Enemy(this.x + (Math.random() * 20) - 20, this.y + (Math.random() * 20) - 20, healthFrag, this.baseSpeed);
+            new Enemy(this.x + (Math.random() * 80) - 40, this.y + (Math.random() * 80) - 40, healthFrag, this.baseSpeed);
         }
         this.die();
     }
