@@ -15,12 +15,27 @@ class Enemy extends Entity {
         // radius at which the explosion on death will damage player
         this.explosionRadius = 80;
         this.explosionDamage = this.maxHealth * 100;
+
+        // used to produce the shaking before the enemy splits
+        this.shakeOffset = {
+            x: 0,
+            y: 0,
+            shakePath: []
+        };
+
+        // chance every frame of the cell starting a split event (between 0 and 1);
+        this.splitChance = 0.0001;
+
         // adds entity to entities list, used to loop through and draw/update all entities
         window.entities[this.id] = this;
     }
 
     update() {
         if(window.player != undefined) {
+            if(Math.random() < this.splitChance && this.health > 20) {
+                this.split();
+            }
+            this.applyShake();
             this.speed = (1 / this.size) * this.baseSpeed;
             this.size = Math.sqrt(this.health) + 1;
             this.seek(window.player.x, window.player.y, () => {return false;});
@@ -33,7 +48,7 @@ class Enemy extends Entity {
         // draw circle
         window.ctx.fillStyle = this.secColour;
         window.ctx.beginPath();
-        window.ctx.arc(this.x + window.offset.x, this.y + window.offset.y, this.size, 0, Math.PI * 2);
+        window.ctx.arc(this.x + window.offset.x + this.shakeOffset.x, this.y + window.offset.y + this.shakeOffset.y, this.size, 0, Math.PI * 2);
         window.ctx.fill();
         window.ctx.closePath();
 
@@ -107,6 +122,37 @@ class Enemy extends Entity {
         if(this.getDistanceToPlayer() < this.explosionRadius * 0.2) {
             this.die();
         }
+    }
+
+    // mostly stolen from the camera shake functions
+    // shakes the enemy then splits into small enemies.
+    split() {
+        for(let i = 0; i < 500 - this.shakeOffset.shakePath.length; i++) {
+            this.shakeOffset.shakePath.push( (Math.random() * 3) - 1);
+        }
+    }
+
+    applyShake() {
+        if(this.shakeOffset.shakePath.length >= 2) {
+            this.shakeOffset.x = this.shakeOffset.shakePath.pop();
+            this.shakeOffset.y = this.shakeOffset.shakePath.pop();
+            if(this.shakeOffset.shakePath.length <= 2) {
+                this.splitEnemy();
+            }
+        } else {
+            this.shakeOffset.x = 0;
+            this.shakeOffset.y = 0;
+        }
+    }
+
+    // splits enemy into a bunch of smaller enemies, which all add up to the same size
+    splitEnemy() {
+       while(this.health > 1) {
+            let healthFrag = this.health * 0.1;
+            this.health -= healthFrag;
+            new Enemy(this.x + (Math.random() * 5) - 5, this.y + (Math.random() * 5) - 5, healthFrag, this.baseSpeed);
+        }
+        this.die();
     }
 
 }
