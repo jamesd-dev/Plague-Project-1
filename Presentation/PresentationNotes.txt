@@ -35,23 +35,30 @@ SLIDE 4
         - I'll spare you the math which involved subbing the line equation into the circle equation and doing a lot of algebra
         - but in the end I got some neat code that told me if the laser hit a circle/enemy.
 SLIDE 5
-    - BIGGEST MISTAKE
+    - CHALLENGE
         - I actually managed to dodge a lot of big mistakes by spending an hour drawing out the program on paper and making sure it was properly organised.
         - One of the problems I did have though was when the player died I kept getting ghost players
             - randomly explode and fire lasers, usually at the player
         - This was because every enemy kept a reference to the player, so it could follow it
-        - there was also a refence to the player in the list of enemies so I could loop through all of them to update positions more easily.
+        - there was also a reference to the player in the list of enemies so I could loop through all of them to update positions more easily.
         - when the player died, it deleted itself from the list, but all the enemies kept their references
         - this created ghost players in the next game.
 SLIDE 6
-    - BIGGEST MISTAKE 2
-        - I fixed it by only having one refence to the player, stored in window
+    - CHALLENGE 2
+        - I fixed it by only having one reference to the player, stored in window
         - the enemies all used the global variable to track the player instead of using a reference
         - when the player dies it destroys the one global reference so nothing else can access it.
         - It took a little while to weed out all of the scattered references, but this solved the problem completely.
 SLIDE 7
-    - DEMO
+	- CHALLENGE 3
+		- One of the major issues I had in the game in general was performance
+		- There's so much going on, and so many calculations run per loop that I had to put a lot of effort into saving performance where I could.
+		- Late in the project I developed a feature where a large enemy could split apart into lots of smaller ones.
+		- By tying this feature to how many enemies were currently in game, I was able to constantly refresh the enemy numbers when the player killed them, and never have more than 100 enemies in game at any one moment.
+		- I found that using tricks like this could make the game run faster, without cutting back on any of the elements that made it fun.
 SLIDE 8
+    - DEMO
+SLIDE 9
     - END
         - Thanks for listening
         - Questions?
