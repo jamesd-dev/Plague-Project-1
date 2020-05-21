@@ -23,6 +23,8 @@ SLIDE 4
 	- and that was close enough to google.
 SLIDE 8
     - DEMO
+    - IF I WERE TO START FROM SCRATCH
+        - spend more time planning the structure on paper
 	- Efficiency
 		- lots of enemies, particle effects, laser
 		- lot of what I did was adding a cool new feature, then spending a day working out how to make it not kill my computer.
