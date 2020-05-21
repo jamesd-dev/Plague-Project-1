@@ -9,16 +9,12 @@ SLIDE 3
 	- made with a lot of small objects
 	- each with a velocity, acceleration, lifetime, size
 	- each had some logic to animate it over time
-	- lesson: interesting to see how big and dramatic results can be made by combining small simple independent things
-	- Also amazing to see how much they added to the game. Simple to make, but there's a real child-like glee to be found in making little dots explode
+	- lesson: amazing to see how much they added to the game. Simple to make, but there's a real child-like glee to be found in making little dots explode
 SLIDE 4
     - COLLISIONS
         - Laser had to collide with the enemy
-        - both to cause damage and to know how long the laser had to be
-        - infinite lines are super bad for performance
         - Spent about half a day working out the math for how circles and lines interact
         - in the end i found an equation for finding the number of intersections between a circle and a line
-        - there was a more complicated equation for finding the exact point of contact, but I only needed to know if the laser hit or not
         - I'll spare you the math which involved subbing the line equation into the circle equation and doing a lot of algebra
         - but in the end I got some neat code that told me if the laser hit a circle/enemy.
 	- Lesson: you don't need to know everything.
