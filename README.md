@@ -66,3 +66,6 @@ TRELLO LINK
 
 DEPLOYMENT LINK
 https://polymurph13.github.io/Plague-Project-1/
+
+PRESENTATION LINK
+https://docs.google.com/presentation/d/1TM8TxDem4xE6MBp8xDPKzqTtp41UDjvpQb92zcquCGU/edit?usp=sharing
